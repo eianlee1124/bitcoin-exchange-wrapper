@@ -16,6 +16,12 @@ class Kraken(OrderBook):
         self.url = url
         self.payload = payload
         
+    def connect(self):
+        self.wss.connect(self.url)
+        
+    def send(self):
+        self.wss.send(json.dumps(self.payload))
+        
     def snapshot(self, update):
         """크라켄 스냅샷이 수신되면 인-메모리에 저장할 프레임형태로
         포맷팅하여 반환.

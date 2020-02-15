@@ -1,1 +1,0 @@
-from lib.exchange.kraken import Kraken

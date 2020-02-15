@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
 
-from lib.defines import ASK, BID, json
-from lib.orderbook import OrderBook
-from lib.websockets import WebSocketAPI
-from lib.config import KrakenConfig as config
+from base.defines import ASK, BID, json
+from base.orderbook import OrderBook
+from base.websockets import WebSocketAPI
+from base.config import KrakenConfig as config
 
 
 class Kraken(OrderBook):

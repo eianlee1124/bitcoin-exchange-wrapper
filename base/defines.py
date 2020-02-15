@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-
-
 import ssl
 import base64
 import hashlib

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 
-from lib.defines import ASK, BID, DEFAULT_DEPTH, islice, pprint
+from base.defines import ASK, BID, DEFAULT_DEPTH, islice, pprint
 
 
 class OrderBook(object):

@@ -21,12 +21,10 @@ class OrderBook(object):
         self.asks = {}
         self.bids = {}
         self.book = self.create_frame()
+        self.reverse = self._reverse
         
-        self._reverse = reverse
-        
-        
-    @property
-    def reverse(self, side):
+    
+    def _reverse(self, side):
         """매도, 매수호가에 따른 내림차순, 오름차순 불린값 반환.
         """
         return False if side == ASK else True
@@ -75,7 +73,7 @@ class OrderBook(object):
     
     def isorted(self, side):
         self.book[side] = self.collect(frame=self.book[side],
-                                       reverse=self.reverse,
+                                       reverse=self.reverse(side),
                                        depths=DEFAULT_DEPTH)
         
     def bprint(self):

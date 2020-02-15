@@ -34,14 +34,14 @@ class Kraken(OrderBook):
     def process(self, side, price, amount):
         """크라켄 인-메모리 오더북 삽입, 갱신, 삭제 프로세스.
         """
-        # 삭제
+        # 인-메모리 오더북 제거.    
         if (float(amount) == 0 and price in self.book[side]):
             self.remove(side, price)
-        # 갱신
-        if (float(amount) == 0 and price in self.book[side]):
+        # 인-메모리 오더북 갱신.
+        if (float(amount) != 0 and price in self.book[side]):
             self.update(side, price, amount)
-        # 삽입
-        if (float(amount) == 0 and price not in self.book[side]):
+        # 인-메모리 오더북 삽입.
+        if (float(amount) != 0 and price not in self.book[side]):
             self.insert(side, price, amount)
         
     def handler(self):
@@ -61,6 +61,7 @@ class Kraken(OrderBook):
                 for s, order in update.items():
                     side = ASK if s == 'a' else BID
                     for price, amount, *_ in order:
+                        print(price, amount)
                         self.process(side, price, amount)
                         
                         

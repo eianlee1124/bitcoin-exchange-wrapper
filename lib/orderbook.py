@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 
-from lib.defines import ASK, BID, DEFAULT_DEPTH, islice
+from lib.defines import ASK, BID, DEFAULT_DEPTH, islice, pprint
 
 
 class OrderBook(object):
@@ -23,6 +23,7 @@ class OrderBook(object):
         self.book = self.create_frame()
         
         self._reverse = reverse
+        
         
     @property
     def reverse(self, side):
@@ -76,3 +77,9 @@ class OrderBook(object):
         self.book[side] = self.collect(frame=self.book[side],
                                        reverse=self.reverse,
                                        depths=DEFAULT_DEPTH)
+        
+    def bprint(self):
+        """현재 거래소의 오더북을 pretty print로 출력하며,
+        딕셔너리 정렬기능 기본값 False.
+        """
+        pprint(self.book, sort_dicts=False)

@@ -71,4 +71,10 @@ if __name__ == "__main__":
     payload = config.payload
     payload['pair'] = [pair]
     
-    print(payload)
+    kraken = Kraken(pair, url, payload)
+    kraken.wss.connect(url)
+    kraken.wss.send(payload)
+    
+    while True:
+        kraken.handler()
+        kraken.bprint()

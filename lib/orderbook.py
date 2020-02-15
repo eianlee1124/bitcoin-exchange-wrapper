@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
+from defines import ASK, BID, DEFAULT_DEPTH, islice
+
 
 class OrderBook(object):
     """오더북 베이스 클래스.
     """
 
-    def __init__(self, pair):
+    def __init__(self, data, pair, reverse=None):
         """Constructor.
         :param name: `str` 거래소 이름.
         :param pair: `str` 구독할 마켓 페어의 이름.
@@ -13,11 +15,20 @@ class OrderBook(object):
         :param bids: `dict` 매수호가 목록.
         :param book: `dict` 거래소 전체 정보 목록.
         """
-        self.name = self.get_name()
+        self.data = data
         self.pair = pair
+        self.name = self.get_name()
         self.asks = {}
         self.bids = {}
         self.book = self.create_frame()
+        
+        self._reverse = reverse
+        
+    @property
+    def reverse(self, side):
+        """매도, 매수호가에 따른 내림차순, 오름차순 불린값 반환.
+        """
+        return False if side == ASK else True
 
     def get_name(self):
         """거래소 클래스의 이름을 반환.
@@ -31,3 +42,37 @@ class OrderBook(object):
                     pair=self.pair,
                     asks=self.asks,
                     bids=self.bids)
+        
+    def remove(self, side, price):
+        """오더북 특정 레벨의 주문을 삭제.
+        """
+        del self.book[side][price]
+        
+    def update(self, side, price, amount):
+        """오더북 특정 레벨의 주문을 갱신.
+        """
+        self.book[side].update({price: amount})
+        
+    def insert(self, side, price, amount):
+        """오더북 특정 주문을 삽입 후 정렬 및 슬라이싱.
+        """
+        self.book[side].update({price: amount})
+        self.isorted(side)
+        
+    def sorted(self, frame, reverse):
+        """오더북 아이템들을 정렬한다.
+        """
+        return sorted(frame.items(), reverse=reverse)
+    
+    def islice(self, frame, reverse, depths):
+        """정렬된 딕셔너리를 슬라이싱한다.
+        """
+        return islice(self.sorted(frame, reverse), depths)
+        
+    def collect(self, frame, reverse, depths):
+        return dict(self.islice(frame, reverse, depths))
+    
+    def isorted(self, side):
+        self.book[side] = self.collect(frame=self.book[side],
+                                       reverse=self.reverse,
+                                       depths=DEFAULT_DEPTH)

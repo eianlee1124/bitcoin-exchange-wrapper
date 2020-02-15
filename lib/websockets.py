@@ -1,10 +1,21 @@
 #!/usr/bin/python3
 
 
-from defines import WebSocket, sslopt
+"""
+웹소켓 연결을 위한 베이스 클래스.
+현재 최소한의 연결을 위한 메서드만 구현 되어 있음.
+"""
+
+
+from lib.defines import sslopt
+from lib.defines import WebSocket
+from lib.orderbook import OrderBook
+
 
 
 class WebSocketAPI(object):
+    """웹소켓 베이스 클래스.
+    """
     
     def __init__(self):
         """Constructor.

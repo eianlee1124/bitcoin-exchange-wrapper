@@ -10,7 +10,7 @@ import itertools
 import httplib2
 import simplejson as json
 import websocket
-
+import pprint
 
 
 ASK = "asks"
@@ -20,4 +20,5 @@ DEFAULT_DEPTH = 10
 islice = itertools.islice
 WebSocket = websocket.WebSocket
 sslopt = {"cert_reqs": ssl.CERT_NONE}
+pprint = pprint.pprint
     

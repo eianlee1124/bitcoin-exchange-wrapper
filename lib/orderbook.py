@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 
-from defines import ASK, BID, DEFAULT_DEPTH, islice
+
+from lib.defines import ASK, BID, DEFAULT_DEPTH, islice
 
 
 class OrderBook(object):
-    """오더북 베이스 클래스.
+    """거래소 베이스 클래스.
     """
 
-    def __init__(self, data, pair, reverse=None):
+    def __init__(self, pair, reverse=None):
         """Constructor.
         :param name: `str` 거래소 이름.
         :param pair: `str` 구독할 마켓 페어의 이름.
@@ -15,7 +16,6 @@ class OrderBook(object):
         :param bids: `dict` 매수호가 목록.
         :param book: `dict` 거래소 전체 정보 목록.
         """
-        self.data = data
         self.pair = pair
         self.name = self.get_name()
         self.asks = {}
